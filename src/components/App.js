@@ -10,6 +10,10 @@ function App() {
     setQuestions([...question, newQuestion])
   }
   const onDelete= (data) => {
+    const getQuestion = question.filter(question => question.id !== data.id)
+  setQuestions(getQuestion)
+};
+  
   return (
     <main>
       <AdminNavBar onChangePage={setPage} />
