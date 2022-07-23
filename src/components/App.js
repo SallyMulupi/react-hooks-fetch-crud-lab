@@ -9,6 +9,7 @@ function App() {
   const setNewQuestion = (newQuestion) => {
     setQuestions([...question, newQuestion])
   }
+  const onDelete= (data) => {
   return (
     <main>
       <AdminNavBar onChangePage={setPage} />
