@@ -6,7 +6,9 @@ import QuestionList from "./QuestionList";
 function App() {
   const [page, setPage] = useState("List");
   const [question, setQuestions]= useState([]);
-
+  const setNewQuestion = (newQuestion) => {
+    setQuestions([...question, newQuestion])
+  }
   return (
     <main>
       <AdminNavBar onChangePage={setPage} />
