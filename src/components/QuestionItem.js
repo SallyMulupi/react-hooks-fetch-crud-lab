@@ -19,7 +19,20 @@ function QuestionItem({ question ,onDelete }) {
       .then(r => r.json())
       .then(() => onDelete(question))
   }
-
+  const updateAnswer =  (event) => {
+    fetch(`http://localhost:4000/questions/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      }, 
+      body: JSON.stringify({
+        correctIndex: event.target.value 
+      })
+    })
+     .then(res => res.json())
+     .then(item => onUpdate(item))
+  }
 
   
   return (
