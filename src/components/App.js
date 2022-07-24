@@ -3,21 +3,37 @@ import AdminNavBar from "./AdminNavBar";
 import QuestionForm from "./QuestionForm";
 import QuestionList from "./QuestionList";
 
+
 function App() {
   const [page, setPage] = useState("List");
-  const [question, setQuestions]= useState([]);
-  const setNewQuestion = (newQuestion) => {
-    setQuestions([...question, newQuestion])
+  const [questionsList, setQuestionsList] = useState([]);
+
+  useEffect(()=> {
+    fetch("http://localhost:4000/questions")
+     .then(res => res.json())
+     .then(questions => setQuestionsList(questions))
+  }, [])
+
+  const onAddQuestion = (newQuestion) => {
+    setQuestionsList([...questionsList, newQuestion])
   }
-  const onDelete= (data) => {
-    const getQuestion = question.filter(question => question.id !== data.id)
-  setQuestions(getQuestion)
-};
-  
+
+  const onDeleteQuestion = (item) => {
+    const updatedQuestions = questionsList.filter(question => question.id !== item.id)
+    setQuestionsList(updatedQuestions)
+  }
+
+  const onUpdate = (item) => {
+    const updateAnswer =  questionsList.map(question => {
+      if(question.id === item.id) return item;
+      return question;
+    });
+    setQuestionsList(updateAnswer)
+  }
   return (
     <main>
       <AdminNavBar onChangePage={setPage} />
-      {page === "Form" ? <QuestionForm /> : <QuestionList />}
+      {page === "Form" ? <QuestionForm onAdd={onAddQuestion}  /> : <QuestionList questions={questionsList} onDelete={onDeleteQuestion} onUpdate={onUpdate} />}
     </main>
   );
 }

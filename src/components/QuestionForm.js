@@ -19,7 +19,6 @@ function QuestionForm(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(formData);
     const postQuestions ={
       prompt:formData.prompt,
       answers: [formData.answer1, formData.answer2, formData.answer3, formData.answer4],
@@ -32,10 +31,8 @@ function QuestionForm(props) {
   body: JSON.stringify(postQuestions),
     })
     .then(res => res.json())
-      .then(postQuestion => setNewQuestion(postQuestion))
+      .then(postQuestion => $setNewQuestion(postQuestion))
   }
-  }
-  
 
   return (
     <section>
