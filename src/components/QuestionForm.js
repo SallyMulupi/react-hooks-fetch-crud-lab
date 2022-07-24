@@ -31,8 +31,9 @@ function QuestionForm(props) {
   body: JSON.stringify(postQuestions),
     })
     .then(res => res.json())
-      .then(postQuestion => $setNewQuestion(postQuestion))
+      .then(postQuestion => setNewQuestion(postQuestion))
   }
+
 
   return (
     <section>

@@ -6,36 +6,23 @@ import QuestionList from "./QuestionList";
 
 function App() {
   const [page, setPage] = useState("List");
-  const [questionsList, setQuestionsList] = useState([]);
+  const [question, setQuestions]= useState([]);
 
-  useEffect(()=> {
-    fetch("http://localhost:4000/questions")
-     .then(res => res.json())
-     .then(questions => setQuestionsList(questions))
-  }, [])
-
-  const onAddQuestion = (newQuestion) => {
-    setQuestionsList([...questionsList, newQuestion])
+  const setNewQuestion = (newQuestion) => {
+    setQuestions([...question, newQuestion])
   }
 
-  const onDeleteQuestion = (item) => {
-    const updatedQuestions = questionsList.filter(question => question.id !== item.id)
-    setQuestionsList(updatedQuestions)
-  }
-
-  const onUpdate = (item) => {
-    const updateAnswer =  questionsList.map(question => {
-      if(question.id === item.id) return item;
-      return question;
-    });
-    setQuestionsList(updateAnswer)
-  }
+const onDelete= (data) => {
+  const getQuestion = question.filter(question => question.id !== data.id)
+  setQuestions(getQuestion)
+};
   return (
     <main>
       <AdminNavBar onChangePage={setPage} />
-      {page === "Form" ? <QuestionForm onAdd={onAddQuestion}  /> : <QuestionList questions={questionsList} onDelete={onDeleteQuestion} onUpdate={onUpdate} />}
+      {page === "Form" ? <QuestionForm setNewQuestion={setNewQuestion} /> : <QuestionList onDelete={onDelete}/>}
     </main>
   );
 }
+
 
 export default App;
